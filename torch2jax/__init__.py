@@ -138,6 +138,7 @@ class Torchish:
   def __ge__(self, other): return Torchish(self.value >= _coerce(other))
   def __matmul__(self, other): return Torchish(self.value @ _coerce(other))
   def __mul__(self, other): return Torchish(self.value * _coerce(other))
+  def __div__(self, other): return Torchish(self.value / _coerce(other))
   def __pow__(self, other): return Torchish(self.value ** _coerce(other))
   def __radd__(self, other): return Torchish(_coerce(other) + self.value)
   def __rmatmul__(self, other): return Torchish(_coerce(other) @ self.value)

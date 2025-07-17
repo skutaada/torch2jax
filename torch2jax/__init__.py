@@ -252,6 +252,7 @@ auto_implements(torch.sqrt, jnp.sqrt)
 auto_implements(torch.sum, jnp.sum)
 auto_implements(torch.tanh, jnp.tanh)
 auto_implements(torch.transpose, jnp.swapaxes)
+auto_implements(torch.nn.functional.softmax, jax.nn.softmax)
 
 
 @implements(torch._assert, Torchishify_output=False)

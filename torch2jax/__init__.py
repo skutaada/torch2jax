@@ -477,7 +477,7 @@ def randperm(
   return jax.random.permutation(mk_rng(), n).astype(dtype or torch.int64)
 
 
-@implements(torch.reshape)
+@implements(torch.reshape, Torchishify_output=False)
 def reshape(input: Torchish, shape):
     return input.reshape(*shape)
 

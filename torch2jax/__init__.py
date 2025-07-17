@@ -479,7 +479,7 @@ def randperm(
 
 @implements(torch.reshape)
 def reshape(input: Torchish, shape):
-    return input.reshape(shape)
+    return input.reshape(*shape)
 
 
 @implements(torch.sort)

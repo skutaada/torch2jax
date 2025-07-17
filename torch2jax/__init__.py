@@ -843,6 +843,12 @@ def dropout(input, p=0.5, training=True, inplace=False):
     return _v(input)
 
 
+@implements(torch.nn.functional.hardtanh)
+def hardtanh(input, min_val=-1, max_val=1, inplace=False):
+    assert inplace == False, "inplace True not implemented"
+    return jnp.where(_v(input) > max_val, max_val, jnp.where(_v(input) < min_val, min_val, _v(input)))
+
+
 @implements(torch.nn.functional.layer_norm)
 def layer_norm(input, normalized_shape, weight=None, bias=None, eps=1e-05):
   input = _v(input)

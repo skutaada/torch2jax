@@ -156,7 +156,7 @@ class Torchish:
   def numel(self): return self.value.size
   def permute(self, *shape): return torch.permute(self, shape)
   def pow(*args, **kwargs): return torch.pow(*args, **kwargs)
-  def size(self): return self.shape
+  def size(self, dim=None): return self.shape if dim is None else self.shape[dim]
   def sum(*args, **kwargs): return torch.sum(*args, **kwargs)
   def transpose(*args, **kwargs): return torch.transpose(*args, **kwargs)
   def view(self, *shape): return Torchish(jnp.reshape(self.value, shape))

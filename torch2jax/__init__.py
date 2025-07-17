@@ -252,7 +252,6 @@ auto_implements(torch.sqrt, jnp.sqrt)
 auto_implements(torch.sum, jnp.sum)
 auto_implements(torch.tanh, jnp.tanh)
 auto_implements(torch.transpose, jnp.swapaxes)
-auto_implements(torch.nn.functional.softmax, jax.nn.softmax)
 
 
 @implements(torch._assert, Torchishify_output=False)
@@ -958,6 +957,11 @@ def scaled_dot_product_attention(query, key, value, attn_mask=None, dropout_p=0.
   attn_weight = jax.nn.softmax((Q @ jnp.swapaxes(K, -2, -1) / math.sqrt(Q.shape[-1])), axis=-1)
   # attn_weight = torch.dropout(attn_weight, dropout_p)
   return attn_weight @ V
+
+
+@implements(torch.nn.functional.softmax)
+def softmax(input: Torchish, dim: Optional[int] = None, _stacklevel: int = 3, dtype = None):
+    return jax.nn.softmax(_v(input), axis=dim)
 
 
 # NOTE: the "torch.Tensor" type annotations here are a lie, or at least an approximation: In reality, they can be

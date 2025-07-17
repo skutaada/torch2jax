@@ -7,6 +7,7 @@ from typing import Literal, Optional, Sequence, Tuple, Union
 import jax
 import jax.dlpack
 import jax.numpy as jnp
+from numpy import isin
 import torch
 from torch.overrides import TorchFunctionMode, resolve_name
 
@@ -925,6 +926,16 @@ def relu(x, inplace=False):
     return x
   else:
     return Torchish(jax.nn.relu(_v(x)))
+
+
+@implements(torch.nn.functional.relu6, Torchishify_output=False)
+def relu6(x, inplace=False):
+    if inplace:
+        assert isinstance(x, Torchish)
+        x.value = jax.nn.relu6(x.value)
+        return x
+    else:
+        return Torchish(jax.nn.relu6(_v(x)))
 
 
 @implements(torch.nn.functional.prelu)

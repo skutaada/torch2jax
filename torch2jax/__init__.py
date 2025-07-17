@@ -160,6 +160,7 @@ class Torchish:
   def view(self, *shape): return Torchish(jnp.reshape(self.value, shape))
   reshape = view
   def unbind(*args, **kwargs): return torch.unbind(*args, **kwargs)
+  def float(self): return Torchish(jnp.asarray(self.value, jnp.float32))
   # fmt: on
 
   def add_(self, other):

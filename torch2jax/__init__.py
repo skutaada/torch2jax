@@ -477,6 +477,11 @@ def randperm(
   return jax.random.permutation(mk_rng(), n).astype(dtype or torch.int64)
 
 
+@implements(torch.reshape)
+def reshape(input: Torchish, shape):
+    return input.reshape(shape)
+
+
 @implements(torch.sort)
 def sort(input, dim=-1, descending=False, stable=False, *, out=None):
   assert out is None, "TODO: implement `out`"
